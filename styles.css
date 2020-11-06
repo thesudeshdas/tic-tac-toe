@@ -1,0 +1,27 @@
+
+
+.gameBoardContainer {
+    border: solid black 2px;
+    background: lightgray;
+    width: 90vw;
+    height: 90vw;
+    margin: 0 auto;
+    
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    
+    
+    
+}
+
+
+.boxItem {
+    border: solid red 2px;
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+    
+    font-size: 2rem;
+}
