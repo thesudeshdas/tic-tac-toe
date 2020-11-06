@@ -15,7 +15,6 @@ const gameBoardObject = ( () => {
 
 // show the gameBoardArray as boxes
 const updateDisplay =  () => {
-    
     const boxes = document.querySelectorAll('.boxItem');
 
     boxes.forEach( box => {
@@ -25,22 +24,21 @@ const updateDisplay =  () => {
 
 // checking for win
 const checkWinningCombo = (sign1, sign2, sign3) => {
-    if (sign1 == sign2 && sign1 == sign3 && sign1 != '') {
+    if (sign1 == sign2 && sign1 == sign3 && sign1 == 'X' || sign1 == 'O') {
         return true;
     }
 };
 
 const checkWin = () => {
-    
     if (
         checkWinningCombo(gameBoardObject.gameBoardArray[0], gameBoardObject.gameBoardArray[1], gameBoardObject.gameBoardArray[2]) ||
-        checkWinningCombo(gameBoardObject.gameBoardArray[3], gameBoardObject.gameBoardArray[4], gameBoardObject.gameBoardArray[5]) 
-        // checkWinningCombo(gameBoardObject.gameBoardArray[6], gameBoardObject.gameBoardArray[7], gameBoardObject.gameBoardArray[8]) ||
-        // checkWinningCombo(gameBoardObject.gameBoardArray[0], gameBoardObject.gameBoardArray[3], gameBoardObject.gameBoardArray[6]) ||
-        // checkWinningCombo(gameBoardObject.gameBoardArray[1], gameBoardObject.gameBoardArray[4], gameBoardObject.gameBoardArray[7]) ||
-        // checkWinningCombo(gameBoardObject.gameBoardArray[2], gameBoardObject.gameBoardArray[5], gameBoardObject.gameBoardArray[8]) ||
-        // checkWinningCombo(gameBoardObject.gameBoardArray[0], gameBoardObject.gameBoardArray[4], gameBoardObject.gameBoardArray[9]) ||
-        // checkWinningCombo(gameBoardObject.gameBoardArray[2], gameBoardObject.gameBoardArray[4], gameBoardObject.gameBoardArray[6])
+        checkWinningCombo(gameBoardObject.gameBoardArray[3], gameBoardObject.gameBoardArray[4], gameBoardObject.gameBoardArray[5]) ||
+        checkWinningCombo(gameBoardObject.gameBoardArray[6], gameBoardObject.gameBoardArray[7], gameBoardObject.gameBoardArray[8]) ||
+        checkWinningCombo(gameBoardObject.gameBoardArray[0], gameBoardObject.gameBoardArray[3], gameBoardObject.gameBoardArray[6]) ||
+        checkWinningCombo(gameBoardObject.gameBoardArray[1], gameBoardObject.gameBoardArray[4], gameBoardObject.gameBoardArray[7]) ||
+        checkWinningCombo(gameBoardObject.gameBoardArray[2], gameBoardObject.gameBoardArray[5], gameBoardObject.gameBoardArray[8]) ||
+        checkWinningCombo(gameBoardObject.gameBoardArray[0], gameBoardObject.gameBoardArray[4], gameBoardObject.gameBoardArray[9]) ||
+        checkWinningCombo(gameBoardObject.gameBoardArray[2], gameBoardObject.gameBoardArray[4], gameBoardObject.gameBoardArray[6])
     ) {
         alert("Someone won")
     } 
