@@ -11,29 +11,119 @@
     <!-- custom CSS -->
     <link rel="stylesheet" href="styles.css">
     
+    <!-- fonts -->
+  	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Open+Sans:wght@600&family=Roboto&display=swap" rel="stylesheet">
+  
+  	<!-- icons -->
+  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
     <title>Tic-Tac-Toe</title>
   </head>
   <body>
     <h1>Tic-Tac-Toe</h1>
     
-    <!-- check multiplayer -->
-    <!-- <button id="singleplayerButton">Single Player</button>
-    <button id="multiplayerButton">Multiplayer</button> -->
+    <!-- check no. of people -->
+    <div class="btn-group buttons-container" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-dark border border-light" id="singleplayerButton">Single Player</button>
+      <button type="button" class="btn btn-dark border border-light" id="multiplayerButton">Multiplayer</button>
+    </div>
+    
+    
+    
+    
+    
+    
+    <!-- form for players -->
+    <form id="formPop" class="form">
+      
+      <!-- close button icon -->
+      <!-- <i class="material-icons md-36 close-form" id="closeButton">close</i>  
+      
+      <h1>Multiplayer</h1>
+      
+      <div class="form-item">
+        <h2>Player 1</h2>
+        <input type="text" placeholder="Enter Player 1 name" class="input-field" id="player1NameInput" required>
+      </div>
+      
+      <div class="form-item">
+        <h2>Player 2</h2>
+        <input type="text" placeholder="Enter Player 2 name" class="input-field" id="player2NameInput" required>
+      </div> -->
+      
+      <!-- add the book button inside the form -->
+      <!-- <button class="btn btn-dark rounded" id="startBtn">Start Game</button> -->
+    </form>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     <!-- gameboard Section -->
     <section id="gameBoardSection">
         <div class="gameBoardContainer" id="gameBoardContainer">
-          <div class="boxItem" id="0"></div>
-          <div class="boxItem" id="1"></div>
-          <div class="boxItem" id="2"></div>
-          <div class="boxItem" id="3"></div>
-          <div class="boxItem" id="4"></div>
-          <div class="boxItem" id="5"></div>
-          <div class="boxItem" id="6"></div>
-          <div class="boxItem" id="7"></div>
-          <div class="boxItem" id="8"></div>
+          <div class="border border-top-0 border-left-0 border-dark boxItem" id="0"></div>
+          <div class="border border-top-0 border-dark boxItem" id="1"></div>
+          <div class="border border-top-0 border-right-0 border-dark boxItem" id="2"></div>
+          <div class="border border-left-0 border-dark boxItem" id="3"></div>
+          <div class="border border-dark boxItem" id="4"></div>
+          <div class="border border-right-0 border-dark boxItem" id="5"></div>
+          <div class="border border-bottom-0 border-left-0 border-dark boxItem" id="6"></div>
+          <div class="border border-bottom-0 border-dark boxItem" id="7"></div>
+          <div class="border border-bottom-0 border-right-0 border-dark boxItem" id="8"></div>
         </div>
     </section>
+    
+    
+    
+    
+    
+    <!-- form for restart -->
+    <form id="formPop" class="restart-form">
+      
+      <!-- close button icon -->
+      <i class="material-icons md-36 close-form" id="closeButton">close</i>  
+      
+      <h1>Game Over</h1>
+      
+      <div class="form-item">
+        <h2 id="announceWinner">Player 1 Won</h2>
+      </div>
+      
+      <!-- add the book button inside the form -->
+      <button class="btn btn-dark rounded" id="restartBtn">Restart Game</button>
+    </form>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     <!-- Optional JavaScript; choose one of the two! -->
 
