@@ -4,6 +4,7 @@ body, html {
     height: 100vh;
     width: 100vw;
     background-color: rgb(223, 223, 223);
+    overflow: hidden;
 }
 
 
@@ -131,8 +132,10 @@ h1 {
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
     
-    pointer-events: none
-    
+}
+
+.unclickable {
+    pointer-events: none;
 }
 
 

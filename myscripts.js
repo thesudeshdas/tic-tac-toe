@@ -1,6 +1,5 @@
 // the board
 const gameBoard = ( () => {
-    // board array to store the sign
     const board = [
         '', '', '',
         '', '', '', 
@@ -10,7 +9,6 @@ const gameBoard = ( () => {
     // show the board as boxes
     const updateDisplay = () => {
         const boxes = document.querySelectorAll('.boxItem');
-
         boxes.forEach( box => {
             box.textContent = gameBoard.board[box.id]
         } )
@@ -21,27 +19,20 @@ const gameBoard = ( () => {
 
 
 
-
-
 const players = ( () => {
-    
-    // players array
-    const playersArr = [];
+    let playersArr = [];
     
     // factory player
     const factoryPlayer = (name, sign) => {
         return {name, sign}
     }
-    
 
     // get the buttons for no. of players
     const singleplayerButton = document.getElementById('singleplayerButton');
     const multiplayerButton = document.getElementById('multiplayerButton');
     
-    // get players name
     const createSingleplayer = () => {
-        
-        // get form
+        // show the form
         const formPop = document.getElementById('formPop');
         formPop.style.display = 'block';
         
@@ -52,38 +43,35 @@ const players = ( () => {
                 <h2>Player</h2>
                 <input type="text" placeholder="Enter Player name" class="border border-dark input-field" id="playerNameInput" required>
             </div>
-            <button class="btn btn-dark rounded" id="startBtn">Start Game</button>
+            <button type="button" class="btn btn-dark rounded" id="startBtn">Start Game</button>
         `;
         formPop.innerHTML = singleplayerFormMarkup;
+        
+        document.getElementById('closeButton').addEventListener('click', () => {formPop.style.display = 'none';})
         
         // create player on click of game start button
         const startBtn = document.getElementById('startBtn');
         startBtn.addEventListener('click', () => {
             
-            // get player name
             const playerName = document.getElementById('playerNameInput').value;
             
-            const player1 = factoryPlayer(playerName, 'X');
-            
-            playersArr.push(player1);
-            
+            if (playerName != '') {
+                const player1 = factoryPlayer(playerName, 'X');
+                const player2 = factoryPlayer('The Bot', 'O');
+                
+                playersArr.push(player1); 
+                playersArr.push(player2);
+                
+                // making grid clickable and hide the form
+                formPop.style.display = 'none';
+                const gameBoardContainer = document.getElementById('gameBoardContainer');
+                gameBoardContainer.classList.remove('unclickable');
+            }
         })
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
     
     const createMultiplayer = () => {
-        
-        // get form
+        // show the form
         const formPop = document.getElementById('formPop');
         formPop.style.display = 'block';
         
@@ -98,77 +86,71 @@ const players = ( () => {
                 <h2>Player 2</h2>
                 <input type="text" placeholder="Enter Player 2 name" class="border border-dark input-field" id="player2NameInput" required>
             </div>
-            <button class="btn btn-dark rounded" id="startBtn">Start Game</button>
+            <button type="button" class="btn btn-dark rounded" id="startBtn">Start Game</button>
         `;
-        
         formPop.innerHTML = multiplayerFormMarkup;
         
+        document.getElementById('closeButton').addEventListener('click', () => {formPop.style.display = 'none';})
+        
+        // create player on click of game start button
+        const startBtn = document.getElementById('startBtn');
+        startBtn.addEventListener('click', () => {
+            
+            const player1Name = document.getElementById('player1NameInput').value;
+            const player2Name = document.getElementById('player2NameInput').value;
+            
+            if (player1Name != '' && player2Name != '') {
+                const player1 = factoryPlayer(player1Name, 'X');
+                const player2 = factoryPlayer(player2Name, 'O');
+                
+                playersArr.push(player1); 
+                playersArr.push(player2);
+                
+                // making grid clickable and hide the form
+                formPop.style.display = 'none';
+                const gameBoardContainer = document.getElementById('gameBoardContainer');
+                gameBoardContainer.classList.remove('unclickable');
+            }
+        })
     }
-    
-    
-    
-    
-    
-    
-    
     
     // event listening to pop form
     singleplayerButton.addEventListener('click', createSingleplayer);
     multiplayerButton.addEventListener('click', createMultiplayer);
     
-   
-    
-    
-    
-    
-    
     return {playersArr}
-    
-    
 } )();
 
 
 
-
-
-
-
-
 const game = ( () => {
-    
-    console.log(players.playersArr)
-    
-    // const newGame = (() => {console.log('New game clicked')})();
     let winnner = '';
-    
-    
     
     // checking for win
     const checkWinningCombo = (sign1, sign2, sign3) => {
         if (sign1 == 'X' || sign1 == 'O') {
             // set the winner
-            (sign1 == 'X') ? winnner = 'X' : winnner = 'O';
+            (sign1 == 'X') ? winnner = players.playersArr[0].name : winnner = players.playersArr[1].name;
     
             // check for 3-in-a-row
             return (sign1 == sign2 && sign1 == sign3) ? true : false;
-            
         }
     };
     
     const checkTie = () => {
         let count = 0;
-        gameBoard.board.forEach(mark => {
-            if (mark != '') {
-                count++;
-            }
-        })
+        gameBoard.board.forEach(mark => { (mark != '') ? count++ : null; })
         
         if(count > 8) {
             alert('tie');
+            
+            showResult('Tie');
+            
+            
+            // making grid unclickable
             const gameBoardContainer = document.getElementById('gameBoardContainer');
-            gameBoardContainer.style.cssText = 'pointer-events: none';
+            gameBoardContainer.classList.add('unclickable');
         }
-        
     }
     
     const checkWin = () => {
@@ -183,10 +165,11 @@ const game = ( () => {
             checkWinningCombo(gameBoard.board[2], gameBoard.board[4], gameBoard.board[6])
         ) {
             alert(winnner + " won");
-            console.log(typeof winnner);
+            console.log(players.playersArr[0].name);
             
+            // making grid unclickable
             const gameBoardContainer = document.getElementById('gameBoardContainer');
-            gameBoardContainer.style.cssText = 'pointer-events: none';
+            gameBoardContainer.classList.add('unclickable');
             
         } else {
             checkTie();
@@ -197,14 +180,9 @@ const game = ( () => {
     const markBox = (() => {
         const boxes = document.querySelectorAll('.boxItem');
         
-
         // create the nextMove
         let nextMove = '';
-        
-        function nextMoveFunction()  {
-            (nextMove == '' || nextMove == 'O') ? nextMove = 'X' : nextMove = 'O';
-            return nextMove;
-        }
+        const nextMoveFunction = () => { return (nextMove == '' || nextMove == 'O') ? nextMove = 'X' : nextMove = 'O'; }
         
         // looping for clicking
         boxes.forEach( box => {
