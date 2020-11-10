@@ -1,3 +1,17 @@
+
+const restartGame = () => {
+    console.log('restarted');
+}
+
+
+
+
+
+
+
+
+
+
 // the board
 const gameBoard = ( () => {
     const board = [
@@ -64,8 +78,7 @@ const players = ( () => {
                 
                 // making grid clickable and hide the form
                 formPop.style.display = 'none';
-                const gameBoardContainer = document.getElementById('gameBoardContainer');
-                gameBoardContainer.classList.remove('unclickable');
+                document.getElementById('gameBoardContainer').classList.remove('unclickable');
             }
         })
     }
@@ -108,8 +121,7 @@ const players = ( () => {
                 
                 // making grid clickable and hide the form
                 formPop.style.display = 'none';
-                const gameBoardContainer = document.getElementById('gameBoardContainer');
-                gameBoardContainer.classList.remove('unclickable');
+                document.getElementById('gameBoardContainer').classList.remove('unclickable');
             }
         })
     }
@@ -125,6 +137,41 @@ const players = ( () => {
 
 const game = ( () => {
     let winnner = '';
+    
+    
+    const showResult = (outcome) => {
+        const restartFormPop = document.getElementById('restartFormPop');
+        restartFormPop.style.display = 'block';
+        
+        restartFormPop.innerHTML = `
+            <div class="bg"></div>
+            
+            <h1>Game Over</h1>
+            
+            <div class="form-item">
+                <h2 id="announceWinner">${(outcome == 'tie') ? 'Its a tie' : outcome + ' Won'}</h2>
+            </div>
+            
+            <!-- add the book button inside the form -->
+            <button type="button" class="btn btn-dark rounded" id="restartBtn">Restart Game</button>
+        `;
+        
+        document.getElementById('restartBtn').addEventListener('click', restartGame());
+        
+        
+        
+        
+        
+        // making grid unclickable
+        document.getElementById('gameBoardContainer').classList.add('unclickable');
+    }
+    
+    
+    
+    
+    
+    
+    
     
     // checking for win
     const checkWinningCombo = (sign1, sign2, sign3) => {
@@ -142,14 +189,7 @@ const game = ( () => {
         gameBoard.board.forEach(mark => { (mark != '') ? count++ : null; })
         
         if(count > 8) {
-            alert('tie');
-            
-            showResult('Tie');
-            
-            
-            // making grid unclickable
-            const gameBoardContainer = document.getElementById('gameBoardContainer');
-            gameBoardContainer.classList.add('unclickable');
+            showResult('tie');
         }
     }
     
@@ -164,17 +204,32 @@ const game = ( () => {
             checkWinningCombo(gameBoard.board[0], gameBoard.board[4], gameBoard.board[8]) ||
             checkWinningCombo(gameBoard.board[2], gameBoard.board[4], gameBoard.board[6])
         ) {
-            alert(winnner + " won");
-            console.log(players.playersArr[0].name);
-            
-            // making grid unclickable
-            const gameBoardContainer = document.getElementById('gameBoardContainer');
-            gameBoardContainer.classList.add('unclickable');
-            
+            showResult(winnner);
         } else {
             checkTie();
         }
     };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     // marking the box
     const markBox = (() => {
@@ -184,12 +239,38 @@ const game = ( () => {
         let nextMove = '';
         const nextMoveFunction = () => { return (nextMove == '' || nextMove == 'O') ? nextMove = 'X' : nextMove = 'O'; }
         
+        // for bot
+        const markBot = () => {
+            // let randomPlace = Math.random() * (8 - 0) + 0;
+            let randomPlace = Math.floor( Math.random() * (Math.floor(8) - Math.ceil(0) + 0 ) ) + Math.ceil(0);
+            
+            // console.log(randomPlace)
+            (gameBoard.board[randomPlace] == '') ? gameBoard.board[randomPlace] = nextMoveFunction() : markBot();
+            
+            // update display
+            gameBoard.updateDisplay();
+                
+            // check for win after each click
+            checkWin();
+        }
+        
+        // for human
         // looping for clicking
         boxes.forEach( box => {
             box.addEventListener('click', () => { 
                 
-                if (box.textContent == '') {
+                
+                // (gameBoard.board[box.id] == '') ? gameBoard.board[box.id] = nextMoveFunction() : null;
+                
+                
+                
+                if (gameBoard.board[box.id] == '') {
                     gameBoard.board[box.id] = nextMoveFunction();
+                    
+                    if (players.playersArr[1].name == 'The Bot') {
+                        markBot();
+                    }
+                    
                 }
                 
                 // update display
@@ -198,11 +279,28 @@ const game = ( () => {
                 // check for win after each click
                 checkWin();
                 
-                console.log(gameBoard.board)
-            } )
-            
-            
+                // bot's turn
+                console.log(gameBoard.board);
+            } ) 
         } )
+        
+        
+        
+        
+        
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
     }
