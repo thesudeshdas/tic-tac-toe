@@ -83,25 +83,17 @@ h1 {
 }
 
 .form-item {
-    margin: 0 10% 5% 10%;
+    margin: 0 10% 0% 10%;
 }
 
 .form button {
     width: 50%;
     height: 2.5rem;
     display: block;
-    margin: 10% auto 10% auto;
+    margin: 5% auto;
     font-family: 'Open Sans', sans-serif;
     font-size: 1.3rem;
 }
-
-/* desjtop */
-@media only screen and (min-width: 768px) {
-    .form {
-        width: 50vw;
-    }
-}
-
 
 
 
@@ -138,13 +130,12 @@ h1 {
 
 
 .boxItem {
-    border-width: 3px;
     display: flex;
     
     justify-content: center;
     align-items: center;
     
-    font-size: 2rem;
+    font-size: 2.5rem;
 }
 
 
@@ -157,7 +148,7 @@ h1 {
 
 /* restart form */
 .restart-form {
-    display: none;
+    display: block;
     position: fixed;
     bottom: 0;
     left: 50%;
@@ -200,14 +191,46 @@ h1 {
     width: 50%;
     height: 2.5rem;
     display: block;
-    margin: 10% auto 10% auto;
+    margin: 5% auto;
     font-family: 'Open Sans', sans-serif;
     font-size: 1.3rem;
 }
 
-/* desjtop */
+
+
+
+
+
+
+/* desktop */
 @media only screen and (min-width: 768px) {
-    .restart-form {
+    .buttons-container {
         width: 50vw;
+        position: block;
+        margin: 2vh auto;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    
+    .gameBoardContainer {
+        height: 60vh;
+        width: 60vh;
+    }
+    
+    .boxItem {
+        font-size: 5rem;
+    }
+    
+    
+    
+    
+    
+    
+    .form {
+        width: 50vw;
+    }
+    
+    .restart-form {
+        width: 30vw;
     }
 }
