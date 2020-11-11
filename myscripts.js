@@ -1,17 +1,4 @@
 
-const restartGame = () => {
-    console.log('restarted');
-}
-
-
-
-
-
-
-
-
-
-
 // the board
 const gameBoard = ( () => {
     const board = [
@@ -29,7 +16,7 @@ const gameBoard = ( () => {
     }
     
     return {board, updateDisplay}  
-})();
+} )();
 
 
 
@@ -80,6 +67,9 @@ const players = ( () => {
                 formPop.style.display = 'none';
                 document.getElementById('gameBoardContainer').classList.remove('unclickable');
             }
+            
+            // make buttons inactive when game is on
+            document.getElementById('numPlayersBtnGrp').classList.add('unclickable');
         })
     }
     
@@ -103,7 +93,7 @@ const players = ( () => {
         `;
         formPop.innerHTML = multiplayerFormMarkup;
         
-        document.getElementById('closeButton').addEventListener('click', () => {formPop.style.display = 'none';})
+        document.getElementById('closeButton').addEventListener('click', () => { formPop.style.display = 'none'; });
         
         // create player on click of game start button
         const startBtn = document.getElementById('startBtn');
@@ -123,6 +113,9 @@ const players = ( () => {
                 formPop.style.display = 'none';
                 document.getElementById('gameBoardContainer').classList.remove('unclickable');
             }
+            
+            // make buttons inactive when game is on
+            document.getElementById('numPlayersBtnGrp').classList.add('unclickable');
         })
     }
     
@@ -137,7 +130,6 @@ const players = ( () => {
 
 const game = ( () => {
     let winnner = '';
-    
     
     const showResult = (outcome) => {
         const restartFormPop = document.getElementById('restartFormPop');
@@ -156,24 +148,12 @@ const game = ( () => {
             <button type="button" class="btn btn-dark rounded" id="restartBtn">Restart Game</button>
         `;
         
-        document.getElementById('restartBtn').addEventListener('click', restartGame());
-        
-        
-        
-        
+        document.getElementById('restartBtn').addEventListener('click', () => { location.reload() });
         
         // making grid unclickable
         document.getElementById('gameBoardContainer').classList.add('unclickable');
     }
     
-    
-    
-    
-    
-    
-    
-    
-    // checking for win
     const checkWinningCombo = (sign1, sign2, sign3) => {
         if (sign1 == 'X' || sign1 == 'O') {
             // set the winner
@@ -186,50 +166,22 @@ const game = ( () => {
     
     const checkTie = () => {
         let count = 0;
-        gameBoard.board.forEach(mark => { (mark != '') ? count++ : null; })
+        gameBoard.board.forEach(mark => { (mark != '') ? count++ : null; });
         
-        if(count > 8) {
-            showResult('tie');
-        }
+        (count > 8) ? showResult('tie') : null;
     }
     
-    const checkWin = () => {
-        if (
-            checkWinningCombo(gameBoard.board[0], gameBoard.board[1], gameBoard.board[2]) ||
-            checkWinningCombo(gameBoard.board[3], gameBoard.board[4], gameBoard.board[5]) ||
-            checkWinningCombo(gameBoard.board[6], gameBoard.board[7], gameBoard.board[8]) ||
-            checkWinningCombo(gameBoard.board[0], gameBoard.board[3], gameBoard.board[6]) ||
-            checkWinningCombo(gameBoard.board[1], gameBoard.board[4], gameBoard.board[7]) ||
-            checkWinningCombo(gameBoard.board[2], gameBoard.board[5], gameBoard.board[8]) ||
-            checkWinningCombo(gameBoard.board[0], gameBoard.board[4], gameBoard.board[8]) ||
-            checkWinningCombo(gameBoard.board[2], gameBoard.board[4], gameBoard.board[6])
-        ) {
-            showResult(winnner);
-        } else {
-            checkTie();
-        }
+    const checkGameOver = () => {
+        (checkWinningCombo(gameBoard.board[0], gameBoard.board[1], gameBoard.board[2]) ||
+        checkWinningCombo(gameBoard.board[3], gameBoard.board[4], gameBoard.board[5]) ||
+        checkWinningCombo(gameBoard.board[6], gameBoard.board[7], gameBoard.board[8]) ||
+        checkWinningCombo(gameBoard.board[0], gameBoard.board[3], gameBoard.board[6]) ||
+        checkWinningCombo(gameBoard.board[1], gameBoard.board[4], gameBoard.board[7]) ||
+        checkWinningCombo(gameBoard.board[2], gameBoard.board[5], gameBoard.board[8]) ||
+        checkWinningCombo(gameBoard.board[0], gameBoard.board[4], gameBoard.board[8]) ||
+        checkWinningCombo(gameBoard.board[2], gameBoard.board[4], gameBoard.board[6])
+        ) ? showResult(winnner) : checkTie();
     };
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     // marking the box
     const markBox = (() => {
@@ -241,28 +193,18 @@ const game = ( () => {
         
         // for bot
         const markBot = () => {
-            // let randomPlace = Math.random() * (8 - 0) + 0;
+            // create random place and mark it
             let randomPlace = Math.floor( Math.random() * (Math.floor(8) - Math.ceil(0) + 0 ) ) + Math.ceil(0);
-            
-            // console.log(randomPlace)
             (gameBoard.board[randomPlace] == '') ? gameBoard.board[randomPlace] = nextMoveFunction() : markBot();
             
-            // update display
+            // update display & check for game over
             gameBoard.updateDisplay();
-                
-            // check for win after each click
-            checkWin();
+            checkGameOver();
         }
         
         // for human
-        // looping for clicking
         boxes.forEach( box => {
             box.addEventListener('click', () => { 
-                
-                
-                // (gameBoard.board[box.id] == '') ? gameBoard.board[box.id] = nextMoveFunction() : null;
-                
-                
                 
                 if (gameBoard.board[box.id] == '') {
                     gameBoard.board[box.id] = nextMoveFunction();
@@ -270,50 +212,14 @@ const game = ( () => {
                     if (players.playersArr[1].name == 'The Bot') {
                         markBot();
                     }
-                    
                 }
                 
-                // update display
+                // update display & check for game over
                 gameBoard.updateDisplay();
-                
-                // check for win after each click
-                checkWin();
-                
-                // bot's turn
-                console.log(gameBoard.board);
+                checkGameOver();
             } ) 
         } )
-        
-        
-        
-        
-        
-        
-        
-      
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    }
-    )();
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    } )();
 } )();
 
 
