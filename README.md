@@ -1,5 +1,3 @@
-# tic-tac-toe
-
 # Tic-Tac-Toe
 The classic game of tic-tac-toe lets the user play against a computer, or against another player.
 
