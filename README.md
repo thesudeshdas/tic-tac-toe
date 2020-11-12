@@ -15,4 +15,4 @@ The project is created under the curriculam of The Odin Project - JavaScript, to
 
 ### Credits
 The Odin Project - JavaScript.
-[Click Here!](https://www.theodinproject.com/courses/javascript/lessons/tic-tac-toe-javascript) to learn more about the project.
+Ctrl + [Click Here!](https://www.theodinproject.com/courses/javascript/lessons/tic-tac-toe-javascript) to learn more about the project.
