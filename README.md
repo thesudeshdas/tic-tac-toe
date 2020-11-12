@@ -4,10 +4,6 @@ The classic game of tic-tac-toe lets the user play against a computer, or agains
 ### Live Preview
 Ctrl + [Click Here!](https://dash-tic-tac-toe.netlify.app/) to play ther game.
 
-### Demo
-![Demo pics]
-
-
 ### Motivation
 The project is created under the curriculam of The Odin Project - JavaScript, to understand factory functions and basic use of modules.
 
